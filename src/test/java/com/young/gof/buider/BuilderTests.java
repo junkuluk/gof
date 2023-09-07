@@ -12,7 +12,7 @@ public class BuilderTests {
 
     @Test
     void test_builder(){
-        TourPlanBuilder builder = new DefaultTourPlanBuilder();
+        TourPlanBuilder builder = new DefaultTourPlanBuilder().newInstance();
         TourPlan plan = builder.title("칸쿤 여행").nightsAndDays(2, 3).startDate(LocalDate.of(2023, 12, 31))
                 .whereToStay("리조트").addPlan(0, "checked in").addPlan(0, "저녁식사")
                 .getPlan();
@@ -20,7 +20,7 @@ public class BuilderTests {
     }
     @Test
     void test_director(){
-        TourDirector tourDirector = new TourDirector(new DefaultTourPlanBuilder());
+        TourDirector tourDirector = new TourDirector(new DefaultTourPlanBuilder().newInstance());
         TourPlan tourPlan = tourDirector.cancunTrip();
         TourPlan tourPlan1 = tourDirector.longBeachTrip();
     }

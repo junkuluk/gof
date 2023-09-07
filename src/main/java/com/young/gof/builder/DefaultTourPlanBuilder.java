@@ -2,58 +2,53 @@ package com.young.gof.builder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DefaultTourPlanBuilder implements TourPlanBuilder {
 
-    private String title;
+    private TourPlan tourPlan;
 
-    private int nights;
-
-    private int days;
-
-    private LocalDate startDate;
-
-    private String whereToStay;
-
-    private List<DetailPlan> plans;
+    @Override
+    public TourPlanBuilder newInstance() {
+        this.tourPlan = new TourPlan();
+        return this;
+    }
 
     @Override
     public TourPlanBuilder title(String title) {
-        this.title = title;
+        tourPlan.setTitle(title);
         return this;
     }
 
     @Override
     public TourPlanBuilder nightsAndDays(int nights, int days) {
-        this.nights = nights;
-        this.days = days;
+        tourPlan.setNights(nights);
+        tourPlan.setDays(days);
         return this;
     }
 
     @Override
     public TourPlanBuilder startDate(LocalDate localDate) {
-        this.startDate = localDate;
+        tourPlan.setStartDate(localDate);
         return this;
     }
 
     @Override
     public TourPlanBuilder whereToStay(String whereToStay) {
-        this.whereToStay = whereToStay;
+        tourPlan.setWhereToStay(whereToStay);
         return this;
     }
 
     @Override
     public TourPlanBuilder addPlan(int day, String plan) {
-        if (this.plans == null) {
-            this.plans = new ArrayList<>();
+        if (this.tourPlan.getPlans() == null) {
+            this.tourPlan.setPlans(new ArrayList<>());
         }
-        this.plans.add(new DetailPlan(day, plan));
+        this.tourPlan.addPlan(day, plan);
         return this;
     }
 
     @Override
     public TourPlan getPlan() {
-        return new TourPlan(title, nights, days, startDate, whereToStay, plans);
+        return this.tourPlan;
     }
 }
